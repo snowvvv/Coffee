@@ -3,19 +3,23 @@ from flask_login import UserMixin
 from . import db
 
 
-class Intern(UserMixin, db.Model):
-    """Стажер"""
+class User(UserMixin, db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(100), unique=True, nullable=False)
     phone = db.Column(db.String(12), nullable=False)
     password = db.Column(db.String(100), nullable=False)
+
+
+class Intern(UserMixin, db.Model, User):
+    """Стажер"""
+
     grade = 1
     cources = db.Column(db.String(100))
     lectures =  db.Column(db.String(100))
 
 
-class Barista(UserMixin, db.Model):
+class Barista(UserMixin, db.Model, User):
     """Бариста"""
 
     id = db.Column(db.Integer, primary_key=True)
@@ -27,7 +31,7 @@ class Barista(UserMixin, db.Model):
     lectures = db.Column(db.String(100))
 
 
-class Manager(UserMixin, db.Model):
+class Manager(UserMixin, db.Model, User):
     """Менеджер"""
 
     id = db.Column(db.Integer, primary_key=True)
@@ -39,7 +43,7 @@ class Manager(UserMixin, db.Model):
     lectures = db.Column(db.String(100))
 
 
-class Administrator(UserMixin, db.Model):
+class Administrator(UserMixin, db.Model, User):
     """Управляющий"""
 
     id = db.Column(db.Integer, primary_key=True)
@@ -51,7 +55,7 @@ class Administrator(UserMixin, db.Model):
     lectures = db.Column(db.String(100))
 
 
-class Hr_manager(UserMixin, db.Model):
+class Hr_manager(UserMixin, db.Model, User):
     """Менеджер по персоналу"""
 
     id = db.Column(db.Integer, primary_key=True)
@@ -61,14 +65,14 @@ class Hr_manager(UserMixin, db.Model):
     grade = 4
 
 
-class Lecture(UserMixin, db.Model):
+class Lecture(UserMixin, db.Model, User):
     """Лекция"""
 
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.String(5000), nullable=False)
 
 
-class Course(UserMixin, db.Model):
+class Course(UserMixin, db.Model, User):
     """Курс"""
 
     id = db.Column(db.Integer, primary_key=True)
