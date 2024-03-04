@@ -34,7 +34,7 @@ def courses():
 
 @main.route('/courses/<int:id>', methods=['GET', 'POST'])
 @login_required
-def cources_lectures():
+def courses_lectures():
     course = models.Course.query.filter_by(id=id)
     lectures = course.lectures
 
@@ -78,9 +78,9 @@ def create_lecture():
             return render_template('new_search_teammates.html')
 
 
-@main.route('/create_cource', methods=['GET', 'POST'])
+@main.route('/create_course', methods=['GET', 'POST'])
 @login_required
-def create_lecture():
+def create_course():
     if current_user.grade == 4:
         if request.method == 'POST':
             name = request.form.get('name')
