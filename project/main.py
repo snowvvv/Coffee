@@ -10,7 +10,7 @@ from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
 
 from . import db
-import models
+from . import models
 from . import ALLOWED_EXTENSIONS
 
 main = Blueprint('main', __name__)
@@ -45,11 +45,16 @@ def cources_lectures():
         return render_template('new_search_teammates.html', data=lectures)
 
 
-@main.route('/lecture/<int:id>', methods=['GET'])
+@main.route('/lecture/<int:id>', methods=['GET', 'POST'])
 @login_required
-def activity_pet(id):
+def lecture(id):
     lecture = models.Lecture.query.filter_by(id=id)
-    return render_template('new_search_teammates.html', data=lecture)
+    if request.method == 'GET':
+
+        return render_template('new_search_teammates.html', data=lecture)
+    else:
+        setattr(current_user, 'completed_lectures', current_user.completed_lectures + lecture)
+        db.session.commit()
 
 
 @main.route('/create_lecture', methods=['GET', 'POST'])
@@ -70,7 +75,7 @@ def create_lecture():
             return redirect(f'/lecture/{id}')
 
         else:
-            render_template('new_search_teammates.html')
+            return render_template('new_search_teammates.html')
 
 
 @main.route('/create_cource', methods=['GET', 'POST'])
@@ -87,4 +92,30 @@ def create_lecture():
             return redirect(f'/courses')
 
         else:
-            render_template('new_search_teammates.html')
+            return render_template('new_search_teammates.html')
+
+
+@main.route('/statistic', methods=['GET', 'POST'])
+@login_required
+def statistic():
+    user = current_user
+    if request.method == 'GET':
+        render_template(
+            'new_search_teammates.html',
+            data=current_user.completed_lectures,
+            data2=current_user.completed_tests
+        )
+    else:
+        return redirect(f'/lalka_statistic/{id}')
+
+
+@main.route('/lalka_statistic/<int:id>', methods=['POST'])
+@login_required
+def statistic():
+    user = models.User.query.filter_by(id=id)
+    return render_template(
+        'new_search_teammates.html',
+        data=user.completed_lectures,
+        data2=user.completed_tests
+    )
+
