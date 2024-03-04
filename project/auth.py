@@ -1,8 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from flask_login import login_user, login_required, logout_user
-from sqlalchemy import null
 from werkzeug.security import generate_password_hash, check_password_hash
-from .models import User
+from .models import User, Intern, Barista, Manager, Administrator, Hr_manager
 from . import db
 
 auth = Blueprint('auth', __name__)
@@ -46,20 +45,51 @@ def signup_post():
     role = request.form.get('role')
 
     user = User.query.filter_by(email=email).first()  # Если это возвращает юзера, то значит маил уже есть в базе
-
+    new_user = None
     if user:  # если такой юзер уже есть, надо сделать редирект на регистрацию, чтобы пользователь мог попробовать снова
         flash('Email уже используется')
         return redirect(url_for('auth.signup'))
     if len(email) < 1 or len(password) < 1 or len(name) < 1:
         flash('Пожалуйста заполните все поля')
         return redirect(url_for('auth.signup'))
+    if role == 'Intern':
+        new_user = Intern(
+            email=email,
+            phone=phone,
+            password=generate_password_hash(password, method='sha256'),
+            name=name
+        )
+    elif role == 'Barista':
+        new_user = Barista(
+            email=email,
+            phone=phone,
+            password=generate_password_hash(password, method='sha256'),
+            name=name
+        )
 
-    new_user = role(
-        email=email,
-        phone=phone,
-        password=generate_password_hash(password, method='sha256'),
-        name=name,
-    )
+    elif role == 'Manager':
+        new_user = Manager(
+            email=email,
+            phone=phone,
+            password=generate_password_hash(password, method='sha256'),
+            name=name
+        )
+
+    elif role == 'Administrator':
+        new_user = Barista(
+            email=email,
+            phone=phone,
+            password=generate_password_hash(password, method='sha256'),
+            name=name
+        )
+
+    elif role == 'Hr_manager':
+        new_user = Hr_manager(
+            email=email,
+            phone=phone,
+            password=generate_password_hash(password, method='sha256'),
+            name=name
+        )
 
     # добавление пользователя в базу
     db.session.add(new_user)
