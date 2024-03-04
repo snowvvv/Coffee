@@ -57,9 +57,9 @@ def lecture(id):
         db.session.commit()
 
 
-@main.route('/create_lecture', methods=['GET', 'POST'])
+@main.route('/create_lectures', methods=['GET', 'POST'])
 @login_required
-def create_lecture():
+def create_lectures():
     if current_user.grade == 4:
         if request.method == 'POST':
             text = request.form.get('text')
@@ -111,7 +111,7 @@ def statistic():
 
 @main.route('/lalka_statistic/<int:id>', methods=['POST'])
 @login_required
-def statistic():
+def lalka_statistic():
     user = models.User.query.filter_by(id=id)
     return render_template(
         'new_search_teammates.html',
