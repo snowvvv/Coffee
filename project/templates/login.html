@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="margin-top: 150px">
+<h2 style="display: flex;
+	flex-direction: column;
+	align-items: center;
+    color: #251002;">Вход</h2>
+
+<div class="site-form">
+  <form method="POST" action="/login">
+    <div class="form-field">
+      <input class="form-input" type="email" name="email" placeholder="Ваш Email">
+    </div>
+    <div class="form-field">
+      <input class="form-input" type="password" name="password" placeholder="Ваш Пароль">
+    </div>
+    <button class="button-form">Войти</button>
+  </form>
+</div>
+</div>
+{% endblock %}

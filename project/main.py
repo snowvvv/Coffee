@@ -18,18 +18,18 @@ main = Blueprint('main', __name__)
 
 @main.route('/')
 def index():
-    return render_template('new_index.html')
+    return render_template('index.html')
 
 
-@main.route('/courses')
+@main.route('/lectures')
 @login_required
-def courses():
+def lectures():
     q = request.args.get('q')
     if q:
-        course = models.Course.query.filter(models.Course.tag.contains(f'{q}'))
+        lectures = models.Lecture.query.filter(models.Lecture.tag.contains(f'{q}'))
     else:
-        course = models.Course.query.all()
-    return render_template('new_search_teammates.html', data=course)
+        lectures = models.Lecture.query.all()
+    return render_template('lectures.html', data=lectures)
 
 
 @main.route('/courses/<int:id>', methods=['GET', 'POST'])
@@ -42,7 +42,7 @@ def courses_lectures():
         return redirect(f'/lecture/{id}')
 
     else:
-        return render_template('new_search_teammates.html', data=lectures)
+        return render_template('courses_lectures.html', data=lectures)
 
 
 @main.route('/lecture/<int:id>', methods=['GET', 'POST'])
@@ -51,9 +51,9 @@ def lecture(id):
     lecture = models.Lecture.query.filter_by(id=id)
     if request.method == 'GET':
 
-        return render_template('new_search_teammates.html', data=lecture)
+        return render_template('lecture.html', data=lecture)
     else:
-        setattr(current_user, 'completed_lectures', current_user.completed_lectures + lecture)
+        setattr(current_user, 'completed_lectures', current_user.completed_lectures + lecture.name)
         db.session.commit()
 
 
@@ -63,11 +63,9 @@ def create_lectures():
     if current_user.grade == 4:
         if request.method == 'POST':
             text = request.form.get('text')
-            course = request.form.get('course')
             name = request.form.get('name')
             result = models.Lecture(
                 text=text,
-                course=course,
                 name=name,
             )
             db.session.add(result)
@@ -75,7 +73,9 @@ def create_lectures():
             return redirect(f'/lecture/{id}')
 
         else:
-            return render_template('new_search_teammates.html')
+            return render_template('create_lectures.html')
+    else:
+        return redirect(url_for('main.index'))
 
 
 @main.route('/create_course', methods=['GET', 'POST'])
@@ -92,7 +92,7 @@ def create_course():
             return redirect(f'/courses')
 
         else:
-            return render_template('new_search_teammates.html')
+            return render_template('create_course.html')
 
 
 @main.route('/statistic', methods=['GET', 'POST'])
@@ -101,7 +101,7 @@ def statistic():
     user = current_user
     if request.method == 'GET':
         render_template(
-            'new_search_teammates.html',
+            'statistic.html',
             data=current_user.completed_lectures,
             data2=current_user.completed_tests
         )
@@ -114,7 +114,7 @@ def statistic():
 def lalka_statistic():
     user = models.User.query.filter_by(id=id)
     return render_template(
-        'new_search_teammates.html',
+        'lalka_statistic.html',
         data=user.completed_lectures,
         data2=user.completed_tests
     )

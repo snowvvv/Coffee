@@ -9,14 +9,13 @@ auth = Blueprint('auth', __name__)
 
 @auth.route('/login')
 def login():
-    return render_template('new_login.html')
+    return render_template('login.html')
 
 
 @auth.route('/login', methods=['POST'])
 def login_post():
     email = request.form.get('email')
     password = request.form.get('password')
-    remember = True if request.form.get('remember') else False
 
     user = User.query.filter_by(email=email).first()
 
@@ -33,16 +32,15 @@ def login_post():
 
 @auth.route('/signup', methods=['GET'])
 def signup():
-    return render_template('new_signup.html')
+    return render_template('signup.html')
 
 
 @auth.route('/signup', methods=['POST'])
 def signup_post():
     email = request.form.get('email')
-    phone = request.form.get('phone')
     password = request.form.get('password')
     name = request.form.get('name')
-    role = request.form.get('role')
+    grade = request.form.get('grade')
 
     user = User.query.filter_by(email=email).first()  # Если это возвращает юзера, то значит маил уже есть в базе
     new_user = None
@@ -52,44 +50,13 @@ def signup_post():
     if len(email) < 1 or len(password) < 1 or len(name) < 1:
         flash('Пожалуйста заполните все поля')
         return redirect(url_for('auth.signup'))
-    if role == 'Intern':
-        new_user = Intern(
-            email=email,
-            phone=phone,
-            password=generate_password_hash(password, method='sha256'),
-            name=name
-        )
-    elif role == 'Barista':
-        new_user = Barista(
-            email=email,
-            phone=phone,
-            password=generate_password_hash(password, method='sha256'),
-            name=name
-        )
 
-    elif role == 'Manager':
-        new_user = Manager(
-            email=email,
-            phone=phone,
-            password=generate_password_hash(password, method='sha256'),
-            name=name
-        )
-
-    elif role == 'Administrator':
-        new_user = Barista(
-            email=email,
-            phone=phone,
-            password=generate_password_hash(password, method='sha256'),
-            name=name
-        )
-
-    elif role == 'Hr_manager':
-        new_user = Hr_manager(
-            email=email,
-            phone=phone,
-            password=generate_password_hash(password, method='sha256'),
-            name=name
-        )
+    new_user = User(
+        email=email,
+        password=generate_password_hash(password, method='sha256'),
+        name=name,
+        grade=grade,
+    )
 
     # добавление пользователя в базу
     db.session.add(new_user)

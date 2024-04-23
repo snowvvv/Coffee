@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>PetCareManager</title>
+
+	<!-- Bootstrap reboot (для сброса стилей) -->
+	<link rel="stylesheet" href="libs/bootstrap-reboot.min.css">
+
+	<!-- Bootstrap сетка -->
+	<link rel="stylesheet" href="libs/bootstrap-grid.min.css">
+
+	<!-- Шрифты с Google Fonts -->
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+	<link href='https://fonts.googleapis.com/css?family=Dela Gothic One' rel='stylesheet'>
+	<link href="https://fonts.cdnfonts.com/css/hey-charlie" rel="stylesheet">
+	<link href="https://fonts.cdnfonts.com/css/dm-sans" rel="stylesheet">
+
+	<!-- Стили сайта -->
+	<style>
+		/**
+ * Базовые стили для всего сайта
+ */
+body {
+	position: relative;
+	font-weight: 300;
+	font-family: "DM Sans", sans-serif;
+	font-style: normal;
+	font-size: 16px;
+	line-height: 1.4;
+	color: #000;
+	min-width: 320px;
+	overflow-x: hidden;
+	height: auto;
+}
+
+/**
+ * Другие стили
+ */
+.navbar {
+	width: 100%;
+	height: 70px;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, .1);
+}
+
+.navbar .container {
+	height: inherit;
+	display: flex;
+	justify-content: space-between;
+	text-align: center;
+}
+
+.navbar-menu {
+	list-style-type: none;
+	padding-left: 0;
+	margin-bottom: 0;
+	margin-right: 20px;
+}
+
+.navbar-menu li {
+	display: inline-block;
+}
+
+.navbar-menu li a {
+	display: inline-block;
+	color: #251002;
+	text-decoration: none;
+	padding: 6px;
+	transition: all .07s ease-in-out;
+}
+
+.navbar-menu li a:hover {
+	color: #DFDFDF;
+}
+
+.navbar-brand {
+	list-style-type: none;
+	padding-left: 0;
+	margin-bottom: 0;
+}
+
+.navbar-brand li {
+	display: inline-block;
+}
+
+.navbar-brand li a {
+	display: inline-block;
+	font-family: "Hey Charlie";
+	font-size: 50px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+	color: #251002;
+	text-decoration: none;
+	padding: 14px;
+  	margin-top: -20%;
+	margin-left: 20px;
+}
+
+.navbar-name {
+	font-weight: 200;
+	font-size: 16px;
+	padding: 8px;
+	color: #4185fb;
+}
+
+.index {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: auto;
+	margin-top: 10%;
+	background-color: #C8D0BE;
+	width: 60%;
+	height: 350px;
+	border-radius: 20px;
+}
+
+.index h1 {
+	color: #FFFFFF;
+	margin-top: 75px;
+	font-size: 36px;
+}
+
+.index h2 {
+	color: #FFFFFF;
+	font-size: 18px;
+	font-weight: lighter;
+}
+
+.index h3 {
+	color: #FFFFFF;
+	font-size: 18px;
+	margin-bottom: 75px;
+	font-weight: lighter;
+}
+
+.title {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 15%;
+}
+
+.title h1 {
+	color: #41B7FB;
+}
+
+.title h2 {
+	color: #41B7FB;
+	font-size: 18px;
+}
+
+h3 {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	color: #41B7FB;
+}
+
+h4 {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	color: #41B7FB;
+}
+
+h5 {
+    margin-top: -1%;
+    color: #41B7FB;
+	font-size: 18px;
+}
+
+.game-info {
+    display: flex;
+	flex-direction: column;
+	align-items: center;
+	color: #41B7FB;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    text-decoration: none;
+}
+
+.faq {
+    display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	color: #41B7FB;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-left: 2%;
+    font-size: 18px;
+}
+
+.stat-price {
+    color: white;
+    text-decoration: none;
+}
+
+.stat {
+    color: #41B7FB;
+}
+
+.post-tag {
+	color: #251002;
+}
+
+.search-form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.post-box {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+.post-border {
+	border: 2px solid #251002;
+	border-radius: 15px;
+	margin: 10px;
+}
+
+.image-post {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+	border-radius: 7px;
+}
+
+.post-bottom {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+	align-items: center;
+	padding: 8px;
+}
+
+.stat-bottom {
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+	padding: 8px;
+}
+
+.info-but {
+	text-decoration: none;
+	display: inline-block;
+   padding: 0 12px;
+   background: #251002;
+   color: white;
+   text-transform: uppercase;
+   font-size: 12px;
+   line-height: 28px;
+	border-radius: 5px;
+   transition: .07s ease-in;
+}
+
+.info-but:hover {
+	background: white;
+	color: #251002;
+}
+
+.button-search {
+	text-decoration: none;
+	display: inline-block;
+   padding: 0 12px;
+   background: #4185fb;
+   color: white;
+   text-transform: uppercase;
+   font-size: 10px;
+   line-height: 22px;
+   transition: .07s ease-in;
+	border-radius: 5px;
+	border: 0;
+}
+
+.button-form {
+	text-decoration: none;
+	margin: 0 auto;
+	display: block;
+	margin-top: 5px;
+	margin-bottom: 8px;
+   padding: 7px 14px;
+   background: #3C3630;
+   color: white;
+   text-transform: uppercase;
+   font-size: 14px;
+   line-height: 22px;
+   transition: .07s ease-in;
+	border-radius: 30px;
+	border: 0;
+	text-align: center;
+}
+
+.button-form:hover {
+	color: #DFDFDF;
+}
+
+.button-profile {
+	text-decoration: none;
+	margin: 0 auto;
+	display: block;
+	margin-top: 5px;
+	margin-bottom: 8px;
+   padding: 0 12px;
+   background: #3C3630;
+   color: white;
+   text-transform: uppercase;
+   font-size: 14px;
+   line-height: 22px;
+   transition: .07s ease-in;
+	border-radius: 5px;
+	border: 0;
+	text-align: center;
+	width: 400px;
+	height: 25px;
+}
+
+.button-profile:hover {
+	color: #DFDFDF;
+}
+
+.button-upload {
+	text-decoration: none;
+	margin: 0 auto;
+	display: block;
+	margin-top: 5px;
+	margin-bottom: 8px;
+   padding: 0 12px;
+   background: #3C3630;
+   color: white;
+   text-transform: uppercase;
+   font-size: 14px;
+   line-height: 22px;
+   transition: .07s ease-in;
+	border-radius: 5px;
+	border: 0;
+	text-align: center;
+	width: 350px;
+	height: 25px;
+}
+
+.button-upload:hover {
+	color: #DFDFDF;
+}
+
+img {
+	border-radius: 5px;
+}
+
+.site-form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.site-form form {
+	border: 2px solid #251002;
+	border-radius: 7px;
+}
+
+.form-field {
+	padding: 8px;
+}
+
+.form-input {
+	border-radius: 30px;
+	border: 0;
+	width: 400px;
+	height: 50px;
+	font-size: 26px;
+	background-color: #DFDFDF;
+	color: #251002;
+	padding: 4px;
+	padding-left: 14px;
+	padding-bottom: 6px;
+}
+
+.form-input-1 {
+	border-radius: 3px;
+	border: 0;
+	width: 400px;
+	height: 50px;
+	font-size: 26px;
+	background-color: #606060;
+	color: white;
+	padding: 4px;
+
+}
+
+.form-input-2 {
+	border-radius: 3px;
+	border: 0;
+	width: 400px;
+	height: 50px;
+	font-size: 26px;
+	background-color: #606060;
+	color: white;
+	padding: 4px;
+
+}
+
+.form-input-3 {
+	border-radius: 3px;
+	border: 0;
+	width: 400px;
+	height: 50px;
+	font-size: 26px;
+	background-color: #606060;
+	color: white;
+	padding: 4px;
+
+}
+
+.notification {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-bottom: 10px;
+	color: white;
+}
+
+.a-profile {
+	text-decoration: none;
+}
+
+	</style>
+</head>
+<body style="background-color: #FFFFFF">
+   <header>
+	<nav class="navbar">
+      <div class="container">
+        <ul class="navbar-brand">
+			<li><a href="{{ url_for('main.index') }}">Coffee</a></li>
+		</ul>
+
+		<ul class="navbar-menu">
+
+			{% if current_user.is_authenticated %}
+			<li><a href="{{ url_for('main.statistic') }}">Статистика</a></li>
+			<li><a href="{{ url_for('main.lectures') }}">Лекции</a></li>
+            {% if current_user.grade == 4 %}
+            <li><a href="{{ url_for('main.create_lectures') }}">Создать лекцию</a></li>
+            {% endif %}
+			{% endif %}
+			{% if not current_user.is_authenticated %}
+			<li style="border: 2px solid #251002;
+			border-radius: 20px;"
+			onmouseover="this.style.backgroundColor='#251002';"
+			onmouseout="this.style.backgroundColor='#FFFFFF';"><a style="margin-left: 7px; margin-right: 7px;"
+																  onmouseover="this.style.color='#FFFFFF';"
+																  onmouseout="this.style.color='#251002';"
+																  href="{{ url_for('auth.login') }}">Войти</a></li>
+			<li style="border: 2px solid #251002;
+			border-radius: 20px;
+			background-color: #FFFFFF;"
+			onmouseover="this.style.backgroundColor='#251002';"
+			onmouseout="this.style.backgroundColor='#FFFFFF';"><a style="margin-left: 7px; margin-right: 7px;"
+										   onmouseover="this.style.color='#FFFFFF';"
+										   onmouseout="this.style.color='#251002';"
+										   href="{{ url_for('auth.signup') }}">Зарегистрироваться</a></li>
+			{% endif %}
+			{% if current_user.is_authenticated %}
+			<li style="border: 2px solid #251002;
+			border-radius: 20px;"
+			onmouseover="this.style.backgroundColor='#251002';"
+			onmouseout="this.style.backgroundColor='#FFFFFF';"><a
+									 style="margin-left: 7px; margin-right: 7px;"
+									 onmouseover="this.style.color='#FFFFFF';"
+									 onmouseout="this.style.color='#251002';"
+									 href="{{ url_for('auth.logout') }}">Выйти</a></li>
+			{% endif %}
+		</ul>
+      </div>
+    </nav>
+   </header>
+   <main>
+	   {% block content %}
+	   {% endblock %}
+   </main>
+</body>
+</html>

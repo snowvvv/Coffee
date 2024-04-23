@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="margin-top: 100px">
+<h2 style="display: flex;
+	flex-direction: column;
+	align-items: center;
+    color: #251002;">Регистрация</h2>
+
+<div class="site-form">
+  <form method="POST" action="/signup">
+    <div class="form-field">
+      <input class="form-input" type="email" name="email" placeholder="Email">
+    </div>
+    <div class="form-field">
+      <input class="form-input" type="password" name="password" placeholder="Пароль">
+    </div>
+    <div class="form-field">
+      <input class="form-input" type="text" name="name" placeholder="Имя">
+    </div>
+    <div class="form-field" style="display: flex; flex-direction: column;">
+      <p style="margin-top: -5%; font-size: 20px;"><input style="width: 20px; height: 20px; margin-left: 0px; margin-top: 16px;" class="form-input" type="radio" name="grade" value="0">Стажер</p>
+      <p style="margin-top: -5%; font-size: 20px;"><input style="width: 20px; height: 20px; margin-left: 0px;" class="form-input" type="radio" name="grade" value="1">Бариста</p>
+      <p style="margin-top: -5%; font-size: 20px;"><input style="width: 20px; height: 20px; margin-left: 0px;" class="form-input" type="radio" name="grade" value="2">Менеджер</p>
+      <p style="margin-top: -5%; font-size: 20px;"><input style="width: 20px; height: 20px; margin-left: 0px;" class="form-input" type="radio" name="grade" value="3">Управляющий</p>
+      <p style="margin-top: -5%; font-size: 20px;"><input style="width: 20px; height: 20px; margin-left: 0px;" class="form-input" type="radio" name="grade" value="4">Менеджер по персоналу</p>
+    </div>
+    <button class="button-form">Создать аккаунт</button>
+  </form>
+</div>
+</div>
+{% endblock %}
