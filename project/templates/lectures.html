@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 style="display: flex;
+	flex-direction: column;
+	align-items: center;
+    color: #251002;">Лекции</h2>
+<div>
+    <form class="search-form">
+       <p><input type="text" placeholder="Поиск по лекциям" name="q" value="{{ request.args.get('q', '') }}">
+       <button type="submit" class="button-search">Найти</button></p>
+    </form>
+</div>
+<div class="post-box">
+    {% for el in data %}
+    <div class="post-border">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="product">
+                    <div class="image-post" style="margin: 10px;">
+                        <img src="/static/images/lectures/{{el.name}}.png" width=350 height=350>
+                    </div>
+                    <div class="info-post">
+                        <a style="display: flex;
+                           text-decoration: none;
+	                       flex-direction: column;
+	                       align-items: center;
+	                       color: #251002;
+                           font-size: 20px;
+                           margin-left: 5px;
+                           margin-right: 5px;" href="/lectures/{{el.id}}">{{ el.name }}</a>
+
+                        <div class="post-bottom">
+                            <a href="/lectures/{{el.id}}" class="info-but">Изучить</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

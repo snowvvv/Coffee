@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="vet-info-list" style="display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;">
+        <div style="display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            flex-wrap: wrap;margin-top: 10%;">
+            <p style="font-size: 24px; margin-top: -10px; color: #251002; font-weight: bold;">Ваши пройденные лекции</p>
+            {% if data1.completed_lectures %}
+            <p style="font-size: 20px; margin-top: -10px; color: #6c757d;">{{data1.completed_lectures}}</p>
+            {% else %}
+            <p style="font-size: 20px; margin-top: -10px; color: #6c757d;">Вы пока не прошли ни одной лекции</p>
+            {% endif %}
+            {% if data2 %}
+            <p style="font-size: 24px; margin-top: 10px; color: #251002; font-weight: bold;">Прогресс других сотрудников</p>
+            {% for user in data2 %}
+            {% if user.completed_lectures %}
+            <p style="font-size: 20px; margin-top: -10px; color: #6c757d;">{{user.name}}: {{user.completed_lectures}}</p>
+            {% else %}
+            <p style="font-size: 20px; margin-top: -10px; color: #6c757d;">{{user.name}}: Не пройдено ни одной лекции</p>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

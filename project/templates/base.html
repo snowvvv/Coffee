@@ -126,13 +126,13 @@ body {
 
 .index h2 {
 	color: #FFFFFF;
-	font-size: 18px;
+	font-size: 20px;
 	font-weight: lighter;
 }
 
 .index h3 {
 	color: #FFFFFF;
-	font-size: 18px;
+	font-size: 20px;
 	margin-bottom: 75px;
 	font-weight: lighter;
 }
@@ -238,7 +238,7 @@ h5 {
 
 .post-bottom {
 	display: flex;
-	flex-flow: row nowrap;
+	flex-flow: column nowrap;
 	justify-content: space-between;
 	align-items: center;
 	padding: 8px;
@@ -258,7 +258,7 @@ h5 {
    background: #251002;
    color: white;
    text-transform: uppercase;
-   font-size: 12px;
+   font-size: 16px;
    line-height: 28px;
 	border-radius: 5px;
    transition: .07s ease-in;
@@ -273,7 +273,7 @@ h5 {
 	text-decoration: none;
 	display: inline-block;
    padding: 0 12px;
-   background: #4185fb;
+   background: #251002;
    color: white;
    text-transform: uppercase;
    font-size: 10px;
@@ -385,6 +385,17 @@ img {
 	padding-bottom: 6px;
 }
 
+.form-textarea {
+  border-radius: 0;
+  border: 0;
+  font-size: 26px;
+  background-color: #DFDFDF;
+  color: #251002;
+  padding-top: 10px;
+  padding-left: 14px;
+  padding-bottom: 6px;
+}
+
 .form-input-1 {
 	border-radius: 3px;
 	border: 0;
@@ -449,8 +460,9 @@ img {
 			<li><a href="{{ url_for('main.statistic') }}">Статистика</a></li>
 			<li><a href="{{ url_for('main.lectures') }}">Лекции</a></li>
             {% if current_user.grade == 4 %}
-            <li><a href="{{ url_for('main.create_lectures') }}">Создать лекцию</a></li>
+            <li><a href="{{ url_for('main.create_lecture') }}">Создать лекцию</a></li>
             {% endif %}
+
 			{% endif %}
 			{% if not current_user.is_authenticated %}
 			<li style="border: 2px solid #251002;

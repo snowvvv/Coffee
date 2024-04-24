@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="vet-info-list" style="display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;">
+        <div style="border-bottom: 2px solid #251002; display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;">
+            <div class="image-post" style="margin-bottom: 10px; margin-top: 10px;">
+                <img src="/static/images/lectures/{{data.name}}.png" width=300 height=300>
+            </div>
+            <p style="font-size: 20px; margin-top: 10px; color: #6c757d;">{{data.name}}</p>
+        </div>
+        <div style="display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            flex-wrap: wrap;">
+            <p style="font-size: 20px; margin-top: 10px; color: #6c757d;">{{data.text}}</p>
+            <div>
+                <a class="a-profile">
+                    <form method="post">
+                        <input type="hidden" name="lecturepassed" value="" />
+                        <button class="button-profile">Подтвердить прохождение</button>
+                    </form>
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
